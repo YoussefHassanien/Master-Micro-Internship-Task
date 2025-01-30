@@ -20,6 +20,9 @@ class Ui_App(object):
         if not App.objectName():
             App.setObjectName(u"App")
         App.resize(725, 559)
+        self.windowIcon = QIcon()
+        self.windowIcon.addPixmap('./Assets/wave-graph.png')
+        App.setWindowIcon(self.windowIcon)
         self.gridLayout = QGridLayout(App)
         self.gridLayout.setObjectName(u"gridLayout")
         self.verticalLayout_4 = QVBoxLayout()
@@ -30,15 +33,15 @@ class Ui_App(object):
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
-        self.label = QLabel(App)
-        self.label.setObjectName(u"label")
+        self.titleLabel = QLabel(App)
+        self.titleLabel.setObjectName(u"titleLabel")
         font = QFont()
         font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
-        self.label.setFont(font)
+        self.titleLabel.setFont(font)
 
-        self.horizontalLayout_2.addWidget(self.label)
+        self.horizontalLayout_2.addWidget(self.titleLabel)
 
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -53,11 +56,11 @@ class Ui_App(object):
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.graphicsView = MplWidget(App)
-        self.graphicsView.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.graphicsView.setObjectName(u"graphicsView")
+        self.plottingGraph = MplWidget(App)
+        self.plottingGraph.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.plottingGraph.setObjectName(u"plottingGraph")
 
-        self.horizontalLayout_3.addWidget(self.graphicsView)
+        self.horizontalLayout_3.addWidget(self.plottingGraph)
 
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
@@ -67,22 +70,30 @@ class Ui_App(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.label_2 = QLabel(App)
-        self.label_2.setObjectName(u"label_2")
-        font1 = QFont()
-        font1.setPointSize(10)
-        font1.setBold(True)
-        font1.setWeight(75)
-        self.label_2.setFont(font1)
+        self.functionOneLabel = QLabel(App)
+        self.functionOneLabel.setObjectName(u"functionOneLabel")
+        basicFont = QFont()
+        basicFont.setPointSize(10)
+        basicFont.setBold(True)
+        basicFont.setWeight(75)
+        errorFont = QFont()
+        errorFont.setPointSize(8)
+        errorFont.setBold(False)
+        errorFont.setWeight(60)
+        self.functionOneLabel.setFont(basicFont)
 
-        self.verticalLayout.addWidget(self.label_2)
-
-        self.textEdit = QTextEdit(App)
-        self.textEdit.setMaximumWidth(800)
-        self.textEdit.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.textEdit.setObjectName(u"textEdit")
-
-        self.verticalLayout.addWidget(self.textEdit)
+        self.verticalLayout.addWidget(self.functionOneLabel)
+        self.functionOneErrorLabel = QLabel(App)
+        self.functionOneErrorLabel.setObjectName(u"functionOneLabel")
+        self.functionOneErrorLabel.setFont(errorFont)
+        self.functionOneErrorLabel.setHidden(True)
+        self.functionOneErrorLabel.setStyleSheet('color: rgb(155,0,0)')
+        self.verticalLayout.addWidget(self.functionOneErrorLabel)
+        self.functionOneTextEdit = QTextEdit(App)
+        self.functionOneTextEdit.setMaximumWidth(800)
+        self.functionOneTextEdit.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.functionOneTextEdit.setObjectName(u"functionOneTextEdit")
+        self.verticalLayout.addWidget(self.functionOneTextEdit)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
@@ -93,18 +104,25 @@ class Ui_App(object):
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.label_3 = QLabel(App)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setFont(font1)
+        self.functionTwoLabel = QLabel(App)
+        self.functionTwoLabel.setObjectName(u"functionTwoLabel")
+        self.functionTwoLabel.setFont(basicFont)
 
-        self.verticalLayout_2.addWidget(self.label_3)
+        self.verticalLayout_2.addWidget(self.functionTwoLabel)
 
-        self.textEdit_2 = QTextEdit(App)
-        self.textEdit_2.setMaximumWidth(800)
-        self.textEdit_2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.textEdit_2.setObjectName(u"textEdit_2")
+        self.functionTwoErrorLabel = QLabel(App)
+        self.functionTwoErrorLabel.setObjectName(u"functionOneLabel")
+        self.functionTwoErrorLabel.setFont(errorFont)
+        self.functionTwoErrorLabel.setHidden(True)
+        self.functionTwoErrorLabel.setStyleSheet('color: rgb(155,0,0)')
+        self.verticalLayout_2.addWidget(self.functionTwoErrorLabel)
 
-        self.verticalLayout_2.addWidget(self.textEdit_2)
+        self.functionTwoTextEdit = QTextEdit(App)
+        self.functionTwoTextEdit.setMaximumWidth(800)
+        self.functionTwoTextEdit.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.functionTwoTextEdit.setObjectName(u"functionTwoTextEdit")
+
+        self.verticalLayout_2.addWidget(self.functionTwoTextEdit)
 
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
@@ -113,32 +131,25 @@ class Ui_App(object):
 
         self.verticalLayout_3.addLayout(self.verticalLayout_2)
 
-        self.pushButton = QPushButton(App)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setFont(font1)
-
-        self.verticalLayout_3.addWidget(self.pushButton)
+        self.plotButton = QPushButton(App)
+        self.plotButton.setObjectName(u"plotButton")
+        self.plotButton.setFont(basicFont)
+        self.plotButtonIcon = QIcon()
+        self.plotButtonIcon.addPixmap('./Assets/drawing.png')
+        self.plotButton.setIcon(self.plotButtonIcon)
+        self.verticalLayout_3.addWidget(self.plotButton)
 
         self.verticalLayout_5 = QVBoxLayout()
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
         self.verticalLayout_5.addItem(self.verticalSpacer_4)
-        self.label_4 = QLabel(App)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setFont(font1)
-        self.label_4.setHidden(True)
+        self.solutionLabel = QLabel(App)
+        self.solutionLabel.setObjectName(u"solutionLabel")
+        self.solutionLabel.setFont(basicFont)
+        self.solutionLabel.setStyleSheet('color: rgb(0,155,0)')
+        self.solutionLabel.setHidden(True)
 
-        self.verticalLayout_5.addWidget(self.label_4)
-
-        self.textEdit_3 = QTextEdit(App)
-        self.textEdit_3.setMaximumWidth(800)
-        self.textEdit_3.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.textEdit_3.setObjectName(u"textEdit_2")
-        self.textEdit_3.setDisabled(True)
-        self.textEdit_3.setHidden(True)
-
-        self.verticalLayout_5.addWidget(self.textEdit_3)
-
+        self.verticalLayout_5.addWidget(self.solutionLabel)
 
 
         self.verticalLayout_3.addLayout(self.verticalLayout_5)
@@ -159,12 +170,12 @@ class Ui_App(object):
     # setupUi
 
     def retranslateUi(self, App):
-        App.setWindowTitle(QCoreApplication.translate("App", u"Form", None))
-        self.label.setText(QCoreApplication.translate("App", u"Functions Plotter", None))
-        self.label_2.setText(QCoreApplication.translate("App", u"Function 1", None))
-        self.label_3.setText(QCoreApplication.translate("App", u"Function 2", None))
-        self.label_4.setText(QCoreApplication.translate("App", u"Solution", None))
-        self.pushButton.setText(QCoreApplication.translate("App", u"Plot", None))
+        App.setWindowTitle(QCoreApplication.translate("App", u"Functions Plotter", None))
+        self.titleLabel.setText(QCoreApplication.translate("App", u"Functions Plotter", None))
+        self.functionOneLabel.setText(QCoreApplication.translate("App", u"Function 1", None))
+        self.functionTwoLabel.setText(QCoreApplication.translate("App", u"Function 2", None))
+        self.solutionLabel.setText(QCoreApplication.translate("App", u"Solution", None))
+        self.plotButton.setText(QCoreApplication.translate("App", u"Plot", None))
     # retranslateUi
 
 if __name__ == "__main__":

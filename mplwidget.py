@@ -11,4 +11,6 @@ class MplWidget(QWidget):
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.canvas)
         self.canvas.axes = self.canvas.figure.add_subplot(111)
+        self.canvas.axes.set_xlabel('X-Axis', labelpad=8, fontweight='bold')  
+        self.canvas.axes.set_ylabel('Y-Axis', labelpad=8, fontweight='bold') 
         self.setLayout(vertical_layout)
