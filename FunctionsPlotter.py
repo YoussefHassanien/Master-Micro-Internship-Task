@@ -16,25 +16,62 @@ from mplwidget import MplWidget
 
 
 class Ui_App(object):
+
+    def plotFunctions(self):
+        pass
+
+    def validateFunctionOneInput(self, text: str) -> bool:
+        pass 
+
+    def validataeFunctionTwoInput(self, text: str) -> bool:
+        pass
+
+    def displayFunctionOneError(self, text: str):
+        pass
+
+    def displayFunctionTwoError(self, text: str):
+        pass
+
+    def displaySolution(self, text: str, ):
+        pass
+
+    def drawFunctionOne(self, text: str):
+        pass
+
+    def drawFunctionTwo(self, text: str):
+        pass 
+
+    def findSolution(self, functionOne: str, functionTwo: str) -> bool:
+        pass
+
+    def drawSolution(self, text: str):
+        pass    
+
     def setupUi(self, App):
         if not App.objectName():
             App.setObjectName(u"App")
-        App.resize(725, 559)
         self.windowIcon = QIcon()
         self.windowIcon.addPixmap('./Assets/wave-graph.png')
+        
+        App.resize(725, 559)
         App.setWindowIcon(self.windowIcon)
+
         self.gridLayout = QGridLayout(App)
         self.gridLayout.setObjectName(u"gridLayout")
+
         self.verticalLayout_4 = QVBoxLayout()
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
         self.titleLabel = QLabel(App)
         self.titleLabel.setObjectName(u"titleLabel")
+
         font = QFont()
         font.setPointSize(14)
         font.setBold(True)
@@ -42,36 +79,33 @@ class Ui_App(object):
         self.titleLabel.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.titleLabel)
-
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
         self.horizontalLayout_2.addItem(self.horizontalSpacer_2)
-
-
         self.verticalLayout_4.addLayout(self.horizontalLayout_2)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
-
         self.verticalLayout_4.addItem(self.verticalSpacer)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+
         self.plottingGraph = MplWidget(App)
         self.plottingGraph.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.plottingGraph.setObjectName(u"plottingGraph")
-
         self.horizontalLayout_3.addWidget(self.plottingGraph)
-
+        
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
-
         self.horizontalLayout_3.addItem(self.horizontalSpacer_3)
 
         self.verticalLayout_3 = QVBoxLayout()
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
+
         self.functionOneLabel = QLabel(App)
         self.functionOneLabel.setObjectName(u"functionOneLabel")
+
         basicFont = QFont()
         basicFont.setPointSize(10)
         basicFont.setBold(True)
@@ -81,8 +115,8 @@ class Ui_App(object):
         errorFont.setBold(False)
         errorFont.setWeight(60)
         self.functionOneLabel.setFont(basicFont)
-
         self.verticalLayout.addWidget(self.functionOneLabel)
+
         self.functionOneErrorLabel = QLabel(App)
         self.functionOneErrorLabel.setObjectName(u"functionOneLabel")
         self.functionOneErrorLabel.setFont(errorFont)
@@ -131,7 +165,7 @@ class Ui_App(object):
 
         self.verticalLayout_3.addLayout(self.verticalLayout_2)
 
-        self.plotButton = QPushButton(App)
+        self.plotButton = QPushButton(App, clicked = lambda: self.plotFunctions())
         self.plotButton.setObjectName(u"plotButton")
         self.plotButton.setFont(basicFont)
         self.plotButtonIcon = QIcon()
