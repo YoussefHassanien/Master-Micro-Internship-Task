@@ -1,6 +1,7 @@
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
+import sys
 import numpy as np
 from mplwidget import MplWidget
 from scipy.optimize import brentq
@@ -192,27 +193,34 @@ class Ui_App(object):
         func_text = text_edit.toPlainText().strip().replace('^', '**')
         error_label.setHidden(True)
         text_edit.setStyleSheet("")
+        
         if not func_text:
             error_label.setText("Function cannot be empty.")
             error_label.setHidden(False)
             text_edit.setStyleSheet("background-color: #ffcccc;")
             return False, None
+        
         try:
             y = eval(func_text, env)
+
+            if not isinstance(y, np.ndarray) or len(y) != len(env['x']):
+                raise ValueError("Function must return an array of the same length as x.")
+            if np.any(np.isinf(y)):
+                raise ZeroDivisionError("Division by zero in the function.")      
+            if np.any(np.isnan(y)):
+                raise ValueError("Math domain error (e.g., square root of a negative number or log10 of a negative number).")    
             return True, y
+        
         except Exception as e:
             if isinstance(e, NameError):
                 name = str(e).split("'")[1]
                 error_msg = f"Undefined name '{name}'. Allowed variables: x. Allowed functions: log10(), sqrt()."
             elif isinstance(e, SyntaxError):
                 error_msg = "Syntax error in function. Check for missing operators (e.g., *, ^, +, ...), parentheses or x."
-            elif isinstance(e, ZeroDivisionError):
+            elif isinstance(e, ZeroDivisionError) or (isinstance(e, ValueError) and "division by zero" in str(e)):
                 error_msg = "Division by zero in the function."
-            elif isinstance(e, ValueError):
-                if 'math domain error' in str(e).lower():
-                    error_msg = "Math domain error (e.g., square root of a negative number)."
-                else:
-                    error_msg = "Value error in function evaluation."
+            elif isinstance(e, ValueError) and "math domain error" in str(e).lower():
+                error_msg = "Math domain error (e.g., square root of a negative number or log10 of a negative number)."
             else:
                 error_msg = "An error occurred. Please check your function's syntax and variables."
             
@@ -238,7 +246,6 @@ class Ui_App(object):
         return np.unique(np.round(roots, decimals=6))
 
 if __name__ == "__main__":
-    import sys
     app = QApplication(sys.argv)
     App = QWidget()
     ui = Ui_App()
