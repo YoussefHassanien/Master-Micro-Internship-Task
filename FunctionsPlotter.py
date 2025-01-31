@@ -152,6 +152,8 @@ class Ui_App(object):
 
     def plotFunctions(self):
             self.plottingGraph.canvas.axes.clear()
+            self.plottingGraph.canvas.axes.set_xlabel('X-Axis', labelpad=8, fontweight='bold')  
+            self.plottingGraph.canvas.axes.set_ylabel('Y-Axis', labelpad=8, fontweight='bold') 
             self.solutionLabel.setHidden(True)
             x = np.linspace(-10, 10, 1000)
             env = {
