@@ -202,13 +202,12 @@ class Ui_App(object):
         
         try:
             y = eval(func_text, env)
-
+            y = np.nan_to_num(y, nan=0.0, posinf=0.0, neginf=0.0)
+            
             if not isinstance(y, np.ndarray) or len(y) != len(env['x']):
                 raise ValueError("Function must return an array of the same length as x.")
             if np.any(np.isinf(y)):
-                raise ZeroDivisionError("Division by zero in the function.")      
-            if np.any(np.isnan(y)):
-                raise ValueError("Math domain error (e.g., square root of a negative number or log10 of a negative number).")    
+                raise ZeroDivisionError("Division by zero in the function.")       
             return True, y
         
         except Exception as e:
